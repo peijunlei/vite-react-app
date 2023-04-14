@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react';
+import type { MenuProps } from 'antd';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Outlet } from 'react-router-dom'
 import './App.css'
+const { Header, Content, Sider } = Layout;
 
-function App() {
-  const [count, setCount] = useState(0)
+const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+  key,
+  label: `nav ${key}`,
+}));
+
+const items2: MenuProps['items'] = [1, 2, 3].map(
+  (icon, index) => {
+    const key = String(index + 1);
+
+    return {
+      key: `sub${key}`,
+      label: `subnav ${key}`,
+
+      children: new Array(4).fill(null).map((_, j) => {
+        const subKey = index * 4 + j + 1;
+        return {
+          key: subKey,
+          label: <a>{`option${subKey}`}</a>,
+        };
+      }),
+    };
+  },
+);
+
+const App: React.FC = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <Layout>
+      <Header className="header">
+        <div className="logo" />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+      </Header>
+      <Layout>
+        <Sider width={200} style={{ background: colorBgContainer }}>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            style={{ height: '100%' }}
+            items={items2}
+          />
+        </Sider>
+        <Layout >
+          <Content
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+              background: colorBgContainer,
+            }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
+      </Layout>
+    </Layout>
+  );
+};
 
-export default App
+export default App;

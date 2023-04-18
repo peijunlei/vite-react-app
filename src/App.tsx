@@ -20,7 +20,13 @@ const items2: MenuProps['items'] = [
     key: 'home',
     label: "主页",
     path: '/home'
+  },
+  {
+    key: 'lazy-image',
+    label: "图片懒加载",
+    path: '/lazy-image'
   }
+  
 ].map(
   (item, index) => {
     return {

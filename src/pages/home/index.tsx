@@ -3,9 +3,7 @@
 import { Space, Button } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import AnimationNumber from './animation-number/animationNumber';
-function generateRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+
 
 function Home() {
   const [counter, setCounter] = useState<number>(123);

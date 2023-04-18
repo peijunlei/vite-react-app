@@ -11,6 +11,7 @@ import ErrorPage from "./error-page";
 import AMap from './pages/gaode-map'
 import './index.css'
 import Home from './pages/home';
+import LazyImage from './pages/lazy-image';
 
 AmapReactConfig.version = '2.0'; // 默认2.0，这里可以不修改
 AmapReactConfig.key = import.meta.env.VITE_AMAP_KEY;
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element:<Home />,
+      },
+      {
+        path: "/lazy-image",
+        element:<LazyImage />,
       }
     ]
   },
